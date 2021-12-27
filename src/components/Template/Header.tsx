@@ -4,7 +4,7 @@ import { RiSearchLine, RiNotificationLine, RiUserAddLine } from 'react-icons/ri'
 export function Header() {
     return (
         <Flex as="header" w="100%" maxWidth="1480px" h="20" mx="auto" mt="4" px="6" align="center">
-            <Text fontSize="3xl" fontWeight="bold" letterSpacing="tight" w="64">
+            <Text fontSize="3xl" fontWeight="bold" letterSpacing="tight" w="44">
                 dashgo <Text as="span" color="pink.500">.</Text>
             </Text>
             <Flex as="label" flex="1" py="4" px="8" ml="6" maxWidth="400px" alignSelf="center" position="relative" color="gray.200" bg="gray.800" borderRadius="full"> 

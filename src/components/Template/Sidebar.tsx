@@ -5,7 +5,7 @@ import { SidebarCategory } from "./SidebarCategory";
 
 export function Sidebar() {
     return (
-        <Box as="aside" w="64" mr="8">
+        <Box as="aside" w="44" mr="8">
             <Stack spacing="8" align="flex-start">
                 <SidebarCategory name="Geral">
                     <NavLink icon={RiDashboardLine} text="Dashboard" url="" />
