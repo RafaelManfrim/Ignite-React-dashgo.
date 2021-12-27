@@ -39,7 +39,9 @@ const opitons = {
             "23 Mar"
         ]
     },
+    colors: [theme.colors.pink[600], theme.colors.green[600]],
     fill: {
+        colors: [theme.colors.pink[400], theme.colors.green[400]],
         opacity: 0.3,
         type: 'gradient',
         gradient: {
@@ -51,7 +53,8 @@ const opitons = {
 }
 
 const series = [
-    { name: 'series1', data: [32, 120, 10, 28, 51, 19] }
+    { name: 'Prova 1', data: [32, 120, 37, 150, 51, 78] },
+    { name: 'Prova 2', data: [2, 178, 68, 123, 159, 35] }
 ]
 
 const series2 = [
