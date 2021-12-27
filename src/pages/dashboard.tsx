@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
-import { Flex, SimpleGrid, Box, Text, theme, grid } from "@chakra-ui/react";
-import { Header, Sidebar } from "../components/Template";
+import { SimpleGrid, Box, Text, theme } from "@chakra-ui/react";
+import { Base } from '../components/Template/Base';
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false })
 
@@ -63,21 +63,17 @@ const series2 = [
 
 export default function Dashboard() {
     return (
-        <Flex direction="column" h="100vh">
-            <Header />
-            <Flex w="100%" my="6" maxWidth="1480px" mx="auto" px="6">
-                <Sidebar />
-                <SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
-                    <Box p="6" pb="2" bg="gray.800" borderRadius="8px">
-                        <Text fontSize="lg" mb="4" ml="5">Inscritos da semana</Text>
-                        <Chart options={opitons} series={series} type="area" height="160px" />
-                    </Box>
-                    <Box p="6" pb="2" bg="gray.800" borderRadius="8px">
-                        <Text fontSize="lg" mb="4" ml="5">Taxa de abertura</Text>
-                        <Chart options={opitons} series={series2} type="area" height="160px" />
-                    </Box>
-                </SimpleGrid>
-            </Flex>
-        </Flex>
+        <Base>
+            <SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
+                <Box p="6" pb="2" bg="gray.800" borderRadius="8px">
+                    <Text fontSize="lg" mb="4" ml="5">Inscritos da semana</Text>
+                    <Chart options={opitons} series={series} type="area" height="160px" />
+                </Box>
+                <Box p="6" pb="2" bg="gray.800" borderRadius="8px">
+                    <Text fontSize="lg" mb="4" ml="5">Taxa de abertura</Text>
+                    <Chart options={opitons} series={series2} type="area" height="160px" />
+                </Box>
+            </SimpleGrid>
+        </Base>
     )
 }
