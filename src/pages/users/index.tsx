@@ -1,6 +1,7 @@
 import { Box, Flex, Text, Heading, Button, Icon, Table, Thead, Tr, Th, Checkbox, Tbody, Td, HStack } from '@chakra-ui/react'
 import { Base } from '../../components/Template/Base'
 import { RiAddLine, RiDeleteBinLine, RiPencilLine } from 'react-icons/ri'
+import { Pagination } from '../../components/Table/Pagination'
 
 export default function UserList() {
     return (
@@ -114,6 +115,7 @@ export default function UserList() {
                         </Tr>
                     </Tbody>
                 </Table>
+                <Pagination />
             </Box>
         </Base>
     )
