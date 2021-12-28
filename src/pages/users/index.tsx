@@ -2,6 +2,7 @@ import { Box, Flex, Text, Heading, Button, Icon, Table, Thead, Tr, Th, Checkbox,
 import { Base } from '../../components/Template/Base'
 import { RiAddLine, RiDeleteBinLine, RiPencilLine } from 'react-icons/ri'
 import { Pagination } from '../../components/Table/Pagination'
+import Link from 'next/link'
 
 export default function UserList() {
     const isWideVersion = useBreakpointValue({
@@ -14,7 +15,9 @@ export default function UserList() {
             <Box flex="1" borderRadius="8px" bg="gray.800" p="8">
                 <Flex mb="8" justify="space-between" align="center">
                     <Heading size="lg" fontWeight="normal">Usuários</Heading>
-                    <Button as="a" size="sm" fontSize="sm" colorScheme="pink" leftIcon={<Icon as={RiAddLine} fontSize="20"/>}>Criar novo usuário</Button>
+                    <Link href="/users/create" passHref>
+                        <Button size="sm" fontSize="sm" colorScheme="pink" leftIcon={<Icon as={RiAddLine} fontSize="20"/>}>Criar novo usuário</Button>
+                    </Link>
                 </Flex>
                 <Table colorScheme="whiteAlpha">
                     <Thead>

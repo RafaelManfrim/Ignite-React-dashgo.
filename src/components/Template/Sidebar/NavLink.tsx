@@ -1,5 +1,7 @@
-import { Text, Link, Icon, LinkProps } from "@chakra-ui/react";
+import { Text, Link as ChakraLink, Icon, LinkProps, textDecoration } from "@chakra-ui/react";
 import { ElementType } from 'react'
+import Link from 'next/link'
+import { useRouter } from "next/router";
 
 interface NavLinkProps extends LinkProps{
     icon: ElementType,
@@ -8,10 +10,16 @@ interface NavLinkProps extends LinkProps{
 }
 
 export function NavLink({ icon, text, url, ...rest }: NavLinkProps) {
+    const router = useRouter()
+
+    const isActive = router.asPath.startsWith(url)
+
     return (
-        <Link display="flex" align="center" {...rest}>
-            <Icon as={icon} fontSize="20"/>
-            <Text ml="4" fontWeight="medium">{text}</Text>
+        <Link href={url} passHref>
+            <ChakraLink display="flex" align="center" _hover={{ textDecoration: 'none', color: 'pink.300' }} color={isActive ? 'pink.500' : ''} {...rest} >
+                <Icon as={icon} fontSize="20"/>
+                <Text ml="4" fontWeight="medium">{text}</Text>
+            </ChakraLink>
         </Link>
     )
 }
