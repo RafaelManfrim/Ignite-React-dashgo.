@@ -1,20 +1,20 @@
 import { Box, Stack } from "@chakra-ui/react";
-import { NavLink } from "./NavLink";
 import { RiContactsLine, RiDashboardLine, RiGitMergeLine, RiInputMethodLine } from "react-icons/ri";
-import { SidebarCategory } from "./SidebarCategory";
+import { NavLink } from "./NavLink";
+import { Category } from "./Category";
 
 export function Sidebar() {
     return (
         <Box as="aside" w="44" mr="8">
             <Stack spacing="8" align="flex-start">
-                <SidebarCategory name="Geral">
+                <Category name="Geral">
                     <NavLink icon={RiDashboardLine} text="Dashboard" url="" />
                     <NavLink icon={RiContactsLine} text="Usuários" url="" />
-                </SidebarCategory>
-                <SidebarCategory name="Automação">
+                </Category>
+                <Category name="Automação">
                     <NavLink icon={RiInputMethodLine} text="Formulários" url="" />
                     <NavLink icon={RiGitMergeLine} text="Automação" url="" />
-                </SidebarCategory>
+                </Category>
             </Stack>
         </Box>
     )

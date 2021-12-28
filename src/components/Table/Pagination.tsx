@@ -1,4 +1,5 @@
 import { Box, HStack, Button } from "@chakra-ui/react"
+import { PaginationItem } from './PaginationItem'
 
 export function Pagination() {
     return (
@@ -7,9 +8,10 @@ export function Pagination() {
                 <strong>0</strong> - <strong>10</strong> de <strong>100</strong>
             </Box>
             <HStack spacing="2">
-                <Button size="sm" fontSize="xs" w="4" colorScheme="pink" disabled _disabled={{ bg: 'pink.500', cursor: 'default'}}>1</Button>
-                <Button size="sm" fontSize="xs" w="4" bg="gray.700">2</Button>
-                <Button size="sm" fontSize="xs" w="4" bg="gray.700">3</Button>
+                <PaginationItem pageNumber={1} isCurrent/>
+                <PaginationItem pageNumber={2}/>
+                <PaginationItem pageNumber={3}/>
+                <PaginationItem pageNumber={4}/>
             </HStack>
         </HStack>
     )

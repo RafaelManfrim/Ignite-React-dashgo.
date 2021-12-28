@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
-import { Header, Sidebar } from './index'
+import { Header } from './Header'
+import { Sidebar } from './Sidebar'
 
 interface BaseProps {
     children: React.ReactNode
