@@ -15,7 +15,8 @@ const opitons = {
         forecolor: theme.colors.gray[500]
     },
     grid: {
-        show: false
+        show: true,
+        borderColor: theme.colors.gray[700],
     },
     dataLabels: {
         enabled: false
@@ -25,10 +26,10 @@ const opitons = {
     },
     xaxis: {
         axisBorder: {
-            color: theme.colors.gray[400]
+            color: theme.colors.gray[500]
         },
         axisTicks: {
-            color: theme.colors.gray[400]
+            color: theme.colors.gray[500]
         },
         categories: [
             "18 Mar",
@@ -65,13 +66,13 @@ export default function Dashboard() {
     return (
         <Base>
             <SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
-                <Box p="6" pb="2" bg="gray.800" borderRadius="8px">
-                    <Text fontSize="lg" mb="4" ml="5">Inscritos da semana</Text>
-                    <Chart options={opitons} series={series} type="area" height="160px" />
+                <Box p={["3","6"]} bg="gray.800" borderRadius="8px">
+                    <Text fontSize="lg" mb="3" ml="4">Inscritos da semana</Text>
+                    <Chart options={opitons} series={series} type="area" height="220px" />
                 </Box>
-                <Box p="6" pb="2" bg="gray.800" borderRadius="8px">
-                    <Text fontSize="lg" mb="4" ml="5">Taxa de abertura</Text>
-                    <Chart options={opitons} series={series2} type="area" height="160px" />
+                <Box p={["3","6"]} bg="gray.800" borderRadius="8px">
+                    <Text fontSize="lg" mb="3" ml="4">Taxa de abertura</Text>
+                    <Chart options={opitons} series={series2} type="area" height="220px" />
                 </Box>
             </SimpleGrid>
         </Base>

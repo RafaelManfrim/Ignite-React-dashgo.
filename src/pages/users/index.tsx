@@ -1,9 +1,14 @@
-import { Box, Flex, Text, Heading, Button, Icon, Table, Thead, Tr, Th, Checkbox, Tbody, Td, HStack } from '@chakra-ui/react'
+import { Box, Flex, Text, Heading, Button, Icon, Table, Thead, Tr, Th, Checkbox, Tbody, Td, HStack, useBreakpointValue } from '@chakra-ui/react'
 import { Base } from '../../components/Template/Base'
 import { RiAddLine, RiDeleteBinLine, RiPencilLine } from 'react-icons/ri'
 import { Pagination } from '../../components/Table/Pagination'
 
 export default function UserList() {
+    const isWideVersion = useBreakpointValue({
+        base: false,
+        lg: true
+    })
+
     return (
         <Base>
             <Box flex="1" borderRadius="8px" bg="gray.800" p="8">
@@ -14,17 +19,17 @@ export default function UserList() {
                 <Table colorScheme="whiteAlpha">
                     <Thead>
                         <Tr>
-                            <Th px="6" color="gray.300" w="8">
+                            <Th px={["2", "4"]} color="gray.300" w={3}>
                                 <Checkbox colorScheme="pink"/>
                             </Th>
                             <Th>Usuário</Th>
-                            <Th>Data de cadastro</Th>
-                            <Th w="32">Ações</Th>
+                            {isWideVersion && <Th>Data de cadastro</Th>}
+                            <Th w="12" textAlign="right">Ações</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
                         <Tr>
-                            <Td px="6">
+                            <Td px={["2", "4"]}>
                                 <Checkbox colorScheme="pink"/>
                             </Td>
                             <Td>
@@ -33,14 +38,14 @@ export default function UserList() {
                                     <Text fontSize="sm" color="gray.300">rafaelmanfrim2004@gmail.com</Text>
                                 </Box>
                             </Td>
-                            <Td>04 de Abril de 2021</Td>
+                            {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>04 de Abril de 2021</Td>}
                             <Td>
-                                <HStack>
-                                    <Button size="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine}></Icon>}>
-                                        Editar
+                                <HStack justify="end">
+                                    <Button size="sm" colorScheme="blue">
+                                        <Icon as={RiPencilLine} fontSize="16" />
                                     </Button>
-                                    <Button size="sm" colorScheme="red" leftIcon={<Icon as={RiDeleteBinLine}></Icon>}>
-                                        Deletar
+                                    <Button size="sm" colorScheme="red">
+                                        <Icon as={RiDeleteBinLine} fontSize="16" />
                                     </Button>
                                 </HStack>
                             </Td>
@@ -48,7 +53,7 @@ export default function UserList() {
                         {/* { Mais usuários } */}
 
                         <Tr>
-                            <Td px="6">
+                            <Td px={["2", "4"]}>
                                 <Checkbox colorScheme="pink"/>
                             </Td>
                             <Td>
@@ -57,20 +62,20 @@ export default function UserList() {
                                     <Text fontSize="sm" color="gray.300">emaillucas@gmail.com</Text>
                                 </Box>
                             </Td>
-                            <Td>22 de Setembro de 2021</Td>
+                            {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>22 de Setembro de 2021</Td>}
                             <Td>
-                                <HStack>
-                                    <Button size="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine}></Icon>}>
-                                        Editar
+                                <HStack justify="end">
+                                    <Button size="sm" colorScheme="blue">
+                                        <Icon as={RiPencilLine} fontSize="16" />
                                     </Button>
-                                    <Button size="sm" colorScheme="red" leftIcon={<Icon as={RiDeleteBinLine}></Icon>}>
-                                        Deletar
+                                    <Button size="sm" colorScheme="red">
+                                        <Icon as={RiDeleteBinLine} fontSize="16" />
                                     </Button>
                                 </HStack>
                             </Td>
                         </Tr>
                         <Tr>
-                            <Td px="6">
+                            <Td px={["2", "4"]}>
                                 <Checkbox colorScheme="pink"/>
                             </Td>
                             <Td>
@@ -79,20 +84,20 @@ export default function UserList() {
                                     <Text fontSize="sm" color="gray.300">marcos.marcos@gmail.com</Text>
                                 </Box>
                             </Td>
-                            <Td>16 de Junho de 2020</Td>
+                            {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>16 de Junho de 2020</Td>}
                             <Td>
-                                <HStack>
-                                    <Button size="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine}></Icon>}>
-                                        Editar
+                                <HStack justify="end">
+                                    <Button size="sm" colorScheme="blue">
+                                        <Icon as={RiPencilLine} fontSize="16" />
                                     </Button>
-                                    <Button size="sm" colorScheme="red" leftIcon={<Icon as={RiDeleteBinLine}></Icon>}>
-                                        Deletar
+                                    <Button size="sm" colorScheme="red">
+                                        <Icon as={RiDeleteBinLine} fontSize="16" />
                                     </Button>
                                 </HStack>
                             </Td>
                         </Tr>
                         <Tr>
-                            <Td px="6">
+                            <Td px={["2", "4"]}>
                                 <Checkbox colorScheme="pink"/>
                             </Td>
                             <Td>
@@ -101,14 +106,14 @@ export default function UserList() {
                                     <Text fontSize="sm" color="gray.300">ju@gmail.com</Text>
                                 </Box>
                             </Td>
-                            <Td>30 de Janeiro de 2021</Td>
+                            {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>30 de Janeiro de 2021</Td>}
                             <Td>
-                                <HStack>
-                                    <Button size="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine}></Icon>}>
-                                        Editar
+                                <HStack justify="end">
+                                    <Button size="sm" colorScheme="blue">
+                                        <Icon as={RiPencilLine} fontSize="16" />
                                     </Button>
-                                    <Button size="sm" colorScheme="red" leftIcon={<Icon as={RiDeleteBinLine}></Icon>}>
-                                        Deletar
+                                    <Button size="sm" colorScheme="red">
+                                        <Icon as={RiDeleteBinLine} fontSize="16" />
                                     </Button>
                                 </HStack>
                             </Td>
