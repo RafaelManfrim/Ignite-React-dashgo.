@@ -8,9 +8,9 @@ interface NavProps {
 export function Nav({ showProfileData = true }: NavProps) {
     return (
         <Flex align="center" ml="auto" >
-            <HStack spacing={["4","6"]} mx={["6","8"]} pr={["6","8"]} py="1" color="gray.300" borderRightWidth="1px" borderColor="gray.700">
-                <Icon as={RiNotificationLine} fontSize="20" />
-                <Icon as={RiUserAddLine} fontSize="20" />
+            <HStack spacing={["3","6"]} mx={["4","8"]} pr={["4","8"]} py="1" color="gray.300" borderRightWidth="1px" borderColor="gray.700">
+                <Icon as={RiNotificationLine} fontSize={["16", "20"]} />
+                <Icon as={RiUserAddLine} fontSize={["16", "20"]} />
             </HStack>
             <Flex align="center">
                 {showProfileData && (
@@ -19,7 +19,7 @@ export function Nav({ showProfileData = true }: NavProps) {
                         <Text color="gray.300" fontSize="small">rafaelmanfrim2004@gmail.com</Text>
                     </Box>
                 )}
-                <Avatar size="md" name="Rafael Manfrim" src="https://avatars.githubusercontent.com/u/72226013?v=4" />
+                <Avatar size={showProfileData ? "md" : "sm"} name="Rafael Manfrim" src="https://avatars.githubusercontent.com/u/72226013?v=4" />
             </Flex>
         </Flex>
     )
