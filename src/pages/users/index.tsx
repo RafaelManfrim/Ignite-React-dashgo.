@@ -1,10 +1,10 @@
+import { useState, useEffect } from 'react'
+import { RiAddLine, RiDeleteBinLine, RiPencilLine } from 'react-icons/ri'
+import Link from 'next/link'
 import { Box, Flex, Text, Heading, Button, Icon, Table, Thead, Tr, Th, Checkbox, Tbody, Td, HStack, Spinner, useBreakpointValue } from '@chakra-ui/react'
 import { Base } from '../../components/Template/Base'
-import { RiAddLine, RiDeleteBinLine, RiPencilLine } from 'react-icons/ri'
 import { Pagination } from '../../components/Table/Pagination'
-import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import { useQuery } from 'react-query'
+import { useUsers } from '../../services/hooks/useUsers'
 
 type User = {
     name: string
@@ -13,13 +13,7 @@ type User = {
 }
 
 export default function UserList() {
-    const { data, isLoading, error } = useQuery('users', async () => {
-        const response = await fetch('http://localhost:3000/api/users/')
-        const data = response.json()
-        return data
-    }, {
-        staleTime: 1000 * 10
-    })
+    const { data, isLoading, isFetching, refetch, error } = useUsers()
 
     const isWideVersion = useBreakpointValue({
         base: false,
@@ -30,7 +24,7 @@ export default function UserList() {
 
     useEffect(() => {
         if(data) {
-            setUserList(data.users)
+            setUserList(data)
         }
     }, [data])
 
@@ -69,7 +63,9 @@ export default function UserList() {
         <Base>
             <Box flex="1" borderRadius="8px" bg="gray.800" p="8">
                 <Flex mb="8" justify="space-between" align="center">
-                    <Heading size="lg" fontWeight="normal">Usuários</Heading>
+                    <Heading size="lg" fontWeight="normal">
+                        Usuários {!isLoading && isFetching && <Spinner speed='0.65s' emptyColor='gray.300' color='pink.400' size='sm' />}
+                    </Heading>
                     <Link href="/users/create" passHref>
                         <Button size="sm" fontSize="sm" colorScheme="pink" leftIcon={<Icon as={RiAddLine} fontSize="20"/>}>Criar novo usuário</Button>
                     </Link>
