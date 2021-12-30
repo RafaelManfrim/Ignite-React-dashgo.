@@ -17,6 +17,8 @@ export default function UserList() {
         const response = await fetch('http://localhost:3000/api/users/')
         const data = response.json()
         return data
+    }, {
+        staleTime: 1000 * 10
     })
 
     const isWideVersion = useBreakpointValue({
