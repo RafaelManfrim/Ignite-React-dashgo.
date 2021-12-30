@@ -3,12 +3,54 @@ import { Base } from '../../components/Template/Base'
 import { RiAddLine, RiDeleteBinLine, RiPencilLine } from 'react-icons/ri'
 import { Pagination } from '../../components/Table/Pagination'
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
+
+type User = {
+    name: string
+    email: string
+    createdAt: string
+}
 
 export default function UserList() {
     const isWideVersion = useBreakpointValue({
         base: false,
         lg: true
     })
+
+    const [userList, setUserList] = useState<User[]>([])
+
+    useEffect(() => {
+        fetch('http://localhost:3000/api/users/')
+            .then(response => response.json())
+            .then(data => setUserList(data.users))
+    }, [])
+
+    function renderUserList() {
+        return userList.map((userData, i) =>(
+            <Tr key={userData.name+i}>
+                <Td px={["2", "4"]}>
+                    <Checkbox colorScheme="pink"/>
+                </Td>
+                <Td>
+                    <Box>
+                        <Text fontWeight="bold">{userData.name}</Text>
+                        <Text fontSize="sm" color="gray.300">{userData.email}</Text>
+                    </Box>
+                </Td>
+                {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>{userData.createdAt}</Td>}
+                <Td>
+                    <HStack justify="end">
+                        <Button size="sm" colorScheme="blue">
+                            <Icon as={RiPencilLine} fontSize="16" />
+                        </Button>
+                        <Button size="sm" colorScheme="red">
+                            <Icon as={RiDeleteBinLine} fontSize="16" />
+                        </Button>
+                    </HStack>
+                </Td>
+            </Tr>
+        ))
+    }
 
     return (
         <Base>
@@ -31,29 +73,8 @@ export default function UserList() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        <Tr>
-                            <Td px={["2", "4"]}>
-                                <Checkbox colorScheme="pink"/>
-                            </Td>
-                            <Td>
-                                <Box>
-                                    <Text fontWeight="bold">Rafael Manfrim</Text>
-                                    <Text fontSize="sm" color="gray.300">rafaelmanfrim2004@gmail.com</Text>
-                                </Box>
-                            </Td>
-                            {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>04 de Abril de 2021</Td>}
-                            <Td>
-                                <HStack justify="end">
-                                    <Button size="sm" colorScheme="blue">
-                                        <Icon as={RiPencilLine} fontSize="16" />
-                                    </Button>
-                                    <Button size="sm" colorScheme="red">
-                                        <Icon as={RiDeleteBinLine} fontSize="16" />
-                                    </Button>
-                                </HStack>
-                            </Td>
-                        </Tr>
-                        {/* { Mais usuários } */}
+                        {renderUserList()}
+                        {/* { Mais usuários }
 
                         <Tr>
                             <Td px={["2", "4"]}>
@@ -120,7 +141,7 @@ export default function UserList() {
                                     </Button>
                                 </HStack>
                             </Td>
-                        </Tr>
+                        </Tr> */}
                     </Tbody>
                 </Table>
                 <Pagination />

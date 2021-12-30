@@ -28,16 +28,17 @@ export function makeServer() {
         },
 
         seeds(server) {
-            server.createList('user', 150)
+            server.createList('user', 50)
         },
         
         routes() {
-            this.namespace = 'mirage'
+            this.namespace = 'api'
             this.timing = 500
 
             this.get('/users/')
             this.post('/users/')
 
+            this.namespace = ''
             this.passthrough()
         }
     })
