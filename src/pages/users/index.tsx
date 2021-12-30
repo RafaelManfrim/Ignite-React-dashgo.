@@ -1,9 +1,10 @@
-import { Box, Flex, Text, Heading, Button, Icon, Table, Thead, Tr, Th, Checkbox, Tbody, Td, HStack, useBreakpointValue } from '@chakra-ui/react'
+import { Box, Flex, Text, Heading, Button, Icon, Table, Thead, Tr, Th, Checkbox, Tbody, Td, HStack, Spinner, useBreakpointValue } from '@chakra-ui/react'
 import { Base } from '../../components/Template/Base'
 import { RiAddLine, RiDeleteBinLine, RiPencilLine } from 'react-icons/ri'
 import { Pagination } from '../../components/Table/Pagination'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useQuery } from 'react-query'
 
 type User = {
     name: string
@@ -12,6 +13,12 @@ type User = {
 }
 
 export default function UserList() {
+    const { data, isLoading, error } = useQuery('users', async () => {
+        const response = await fetch('http://localhost:3000/api/users/')
+        const data = response.json()
+        return data
+    })
+
     const isWideVersion = useBreakpointValue({
         base: false,
         lg: true
@@ -20,10 +27,10 @@ export default function UserList() {
     const [userList, setUserList] = useState<User[]>([])
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/users/')
-            .then(response => response.json())
-            .then(data => setUserList(data.users))
-    }, [])
+        if(data) {
+            setUserList(data.users)
+        }
+    }, [data])
 
     function renderUserList() {
         return userList.map((userData, i) =>(
@@ -37,7 +44,11 @@ export default function UserList() {
                         <Text fontSize="sm" color="gray.300">{userData.email}</Text>
                     </Box>
                 </Td>
-                {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>{userData.createdAt}</Td>}
+                {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>{new Date(userData.createdAt).toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                })}</Td>}
                 <Td>
                     <HStack justify="end">
                         <Button size="sm" colorScheme="blue">
@@ -61,90 +72,34 @@ export default function UserList() {
                         <Button size="sm" fontSize="sm" colorScheme="pink" leftIcon={<Icon as={RiAddLine} fontSize="20"/>}>Criar novo usuário</Button>
                     </Link>
                 </Flex>
-                <Table colorScheme="whiteAlpha">
-                    <Thead>
-                        <Tr>
-                            <Th px={["2", "4"]} color="gray.300" w={3}>
-                                <Checkbox colorScheme="pink"/>
-                            </Th>
-                            <Th>Usuário</Th>
-                            {isWideVersion && <Th>Data de cadastro</Th>}
-                            <Th w="12" textAlign="right">Ações</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {renderUserList()}
-                        {/* { Mais usuários }
-
-                        <Tr>
-                            <Td px={["2", "4"]}>
-                                <Checkbox colorScheme="pink"/>
-                            </Td>
-                            <Td>
-                                <Box>
-                                    <Text fontWeight="bold">Lucas</Text>
-                                    <Text fontSize="sm" color="gray.300">emaillucas@gmail.com</Text>
-                                </Box>
-                            </Td>
-                            {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>22 de Setembro de 2021</Td>}
-                            <Td>
-                                <HStack justify="end">
-                                    <Button size="sm" colorScheme="blue">
-                                        <Icon as={RiPencilLine} fontSize="16" />
-                                    </Button>
-                                    <Button size="sm" colorScheme="red">
-                                        <Icon as={RiDeleteBinLine} fontSize="16" />
-                                    </Button>
-                                </HStack>
-                            </Td>
-                        </Tr>
-                        <Tr>
-                            <Td px={["2", "4"]}>
-                                <Checkbox colorScheme="pink"/>
-                            </Td>
-                            <Td>
-                                <Box>
-                                    <Text fontWeight="bold">Marcos</Text>
-                                    <Text fontSize="sm" color="gray.300">marcos.marcos@gmail.com</Text>
-                                </Box>
-                            </Td>
-                            {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>16 de Junho de 2020</Td>}
-                            <Td>
-                                <HStack justify="end">
-                                    <Button size="sm" colorScheme="blue">
-                                        <Icon as={RiPencilLine} fontSize="16" />
-                                    </Button>
-                                    <Button size="sm" colorScheme="red">
-                                        <Icon as={RiDeleteBinLine} fontSize="16" />
-                                    </Button>
-                                </HStack>
-                            </Td>
-                        </Tr>
-                        <Tr>
-                            <Td px={["2", "4"]}>
-                                <Checkbox colorScheme="pink"/>
-                            </Td>
-                            <Td>
-                                <Box>
-                                    <Text fontWeight="bold">Júlio</Text>
-                                    <Text fontSize="sm" color="gray.300">ju@gmail.com</Text>
-                                </Box>
-                            </Td>
-                            {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>30 de Janeiro de 2021</Td>}
-                            <Td>
-                                <HStack justify="end">
-                                    <Button size="sm" colorScheme="blue">
-                                        <Icon as={RiPencilLine} fontSize="16" />
-                                    </Button>
-                                    <Button size="sm" colorScheme="red">
-                                        <Icon as={RiDeleteBinLine} fontSize="16" />
-                                    </Button>
-                                </HStack>
-                            </Td>
-                        </Tr> */}
-                    </Tbody>
-                </Table>
-                <Pagination />
+                {isLoading ? (
+                    <Flex justify="center" align="center" h={128}>
+                        <Spinner thickness='6px' speed='0.65s' emptyColor='gray.400' color='pink.500' size='xl' />
+                    </Flex>
+                ) : error ? (
+                    <Flex justify="center">
+                        Falha ao obter dados dos usuários
+                    </Flex>
+                ) : (
+                    <>
+                        <Table colorScheme="whiteAlpha">
+                            <Thead>
+                                <Tr>
+                                    <Th px={["2", "4"]} color="gray.300" w={3}>
+                                        <Checkbox colorScheme="pink"/>
+                                    </Th>
+                                    <Th>Usuário</Th>
+                                    {isWideVersion && <Th>Data de cadastro</Th>}
+                                    <Th w="12" textAlign="right">Ações</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {renderUserList()}
+                            </Tbody>
+                        </Table>
+                        <Pagination />
+                    </>
+                )}
             </Box>
         </Base>
     )
