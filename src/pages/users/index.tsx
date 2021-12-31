@@ -9,7 +9,7 @@ import { useUsers } from '../../services/hooks/useUsers'
 type User = {
     name: string
     email: string
-    createdAt: string
+    created_at: string
 }
 
 export default function UserList() {
@@ -25,6 +25,7 @@ export default function UserList() {
 
     useEffect(() => {
         if(data?.users) {
+            console.log(data.users)
             setUserList(data.users)
         }
     }, [data])
@@ -41,7 +42,7 @@ export default function UserList() {
                         <Text fontSize="sm" color="gray.300">{userData.email}</Text>
                     </Box>
                 </Td>
-                {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>{new Date(userData.createdAt).toLocaleDateString('pt-BR', {
+                {isWideVersion && <Td fontSize={["sm", "sm", "md"]}>{new Date(userData.created_at).toLocaleDateString('pt-BR', {
                     day: '2-digit',
                     month: 'long',
                     year: 'numeric'
