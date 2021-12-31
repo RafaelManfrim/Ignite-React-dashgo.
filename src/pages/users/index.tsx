@@ -13,7 +13,8 @@ type User = {
 }
 
 export default function UserList() {
-    const { data, isLoading, isFetching, refetch, error } = useUsers()
+    const [page, setPage] = useState(1)
+    const { data, isLoading, isFetching, refetch, error } = useUsers(page)
 
     const isWideVersion = useBreakpointValue({
         base: false,
@@ -23,8 +24,8 @@ export default function UserList() {
     const [userList, setUserList] = useState<User[]>([])
 
     useEffect(() => {
-        if(data) {
-            setUserList(data)
+        if(data?.users) {
+            setUserList(data.users)
         }
     }, [data])
 
@@ -95,7 +96,7 @@ export default function UserList() {
                                 {renderUserList()}
                             </Tbody>
                         </Table>
-                        <Pagination />
+                        <Pagination totalOfRegisters={data?.totalOfRegisters || 10} currentPage={page} onPageChange={setPage} />
                     </>
                 )}
             </Box>
